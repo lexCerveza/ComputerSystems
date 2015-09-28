@@ -8,11 +8,11 @@ namespace Lab1
     {
         static void Main()
         {
-            var k = new double[] { 100, 0, 200, 0, 100, 0, 0, 200, 300, 0 };
-            var l = new double[] { 0, 50, 0, 75, 0, 100, 75, 0, 0, 50 };
-            var numberFile = new [] { 1, 0, 2, 0, 1, 0, 0, 2, 3, 0 };
+            var averageInfoAmount = new double[] { 100, 0, 200, 0, 100, 0, 0, 200, 300, 0 };
+            var operationsPerOperator = new double[] { 0, 50, 0, 75, 0, 100, 75, 0, 0, 50 };
+            var numberFile = new int[] { 1, 0, 2, 0, 1, 0, 0, 2, 3, 0 };
 
-            var a = Matrix<double>.Build.DenseOfArray(new [,]
+            var probabilityMatrix = Matrix<double>.Build.DenseOfArray(new double[,]
             {
                 {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, (2 / 7.0) * (1 / 6.0), (2 / 7.0) * (5 / 6.0), 0, (5 / 7.0) * (4 / 5.0), (5 / 7.0) * (1 / 5.0), 0, 0, 0},
@@ -26,87 +26,79 @@ namespace Lab1
                 {0, 0, 0, 0, 0, 0, 0, 0, 1 / 5.0, 4 / 5.0},
             });
 
-            var b = Vector<double>.Build.Dense(new double[] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+            var constantTermsVector = Vector<double>.Build.Dense(new double[] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
 
             // Linear Equation System solving 
-            a = a.Transpose();
-            for (var i = 0; i < a.RowCount; i++)
+            probabilityMatrix = probabilityMatrix.Transpose();
+            for (var i = 0; i < probabilityMatrix.RowCount; i++)
             {
-                a[i, i] = a[i, i] - 1;
+                probabilityMatrix[i, i] = probabilityMatrix[i, i] - 1;
             }
-            var n = a.Solve(b).ToArray();
+            var solutions = probabilityMatrix.Solve(constantTermsVector).ToArray();
 
             // Q
-            var q = k.Select(((ki, i) => ki * n[i])).Sum();
+            var averageOperationsPerRun = averageInfoAmount.Select(((ki, i) => ki * solutions[i])).Sum();
 
             // N1, N2, N3
-            double n1 = 0;
-            double n2 = 0;
-            double n3 = 0;
+            double[] averageFileAccesses = { 0, 0, 0 };
+
             for (var i = 0; i < numberFile.Length; i++)
             {
                 switch (numberFile[i])
                 {
                     case 1:
-                        n1 += n[i];
+                        averageFileAccesses[0] += solutions[i];
                         break;
                     case 2:
-                        n2 += n[i];
+                        averageFileAccesses[1] += solutions[i];
                         break;
                     case 3:
-                        n3 += n[i];
+                        averageFileAccesses[2] += solutions[i];
                         break;
                 }
             }
 
             // Q1, Q2, Q3
-            double q1 = 0;
-            double q2 = 0;
-            double q3 = 0;
-            double N = 0;
+            double[] averageInfoPutToFilePerRun = { 0, 0, 0 };
+            double averageOperatorAccesses = 0;
             for (var i = 0; i < numberFile.Length; i++)
             {
                 switch (numberFile[i])
                 {
                     case 1:
-                        q1 += n[i] * k[i];
+                        averageInfoPutToFilePerRun[0] += solutions[i] * averageInfoAmount[i];
                         break;
                     case 2:
-                        q2 += n[i] * k[i];
+                        averageInfoPutToFilePerRun[1] += solutions[i] * averageInfoAmount[i];
                         break;
                     case 3:
-                        q3 += n[i] * k[i];
+                        averageInfoPutToFilePerRun[2] += solutions[i] * averageInfoAmount[i];
                         break;
                     default:
-                        N += n[i];
+                        averageOperatorAccesses += solutions[i];
                         break;
                 }
             }
 
-            q1 = q1 * (1 / n1);
-            q2 = q2 * (1 / n2);
-            q3 = q3 * (1 / n3);
+            for (var i = 0; i < averageInfoPutToFilePerRun.Length; i++)
+                averageInfoPutToFilePerRun[i] = averageInfoPutToFilePerRun[i] * (1 / averageFileAccesses[i]);
 
             // Q0
-            var q0 = q / N;
+            var averageOperatorOperations = averageOperationsPerRun / averageOperatorAccesses;
 
-            for (var i = 0; i < n.Length; i++)
+            for (var i = 0; i < solutions.Length; i++)
             {
-                Console.WriteLine("n[" + (i + 1) + "] = " + n[i]);
+                Console.WriteLine("n[" + (i + 1) + "] = " + solutions[i]);
             }
 
-            Console.WriteLine("\nQ = " + q);
+            Console.WriteLine(Environment.NewLine + "Q = " + averageOperationsPerRun);
 
-            Console.WriteLine("N1 = " + n1);
-            Console.WriteLine("N2 = " + n2);
-            Console.WriteLine("N3 = " + n3);
+            for (var i = 0; i < averageFileAccesses.Length; i++)
+            {
+                Console.WriteLine("N" + (i + 1) + " = " + averageFileAccesses[i] + ", Q" + (i + 1) + " = " + averageInfoPutToFilePerRun[i]);
+            }
 
-            Console.WriteLine("Q1 = " + q1);
-            Console.WriteLine("Q2 = " + q2);
-            Console.WriteLine("Q3 = " + q3);
-
-            Console.WriteLine("Q0 = " + q0);
-
+            Console.WriteLine(Environment.NewLine + "Q0 = " + averageOperatorOperations);
             Console.Read();
         }
     }
