@@ -10,9 +10,9 @@ namespace Lab1
         {
             var k = new double[] { 100, 0, 200, 0, 100, 0, 0, 200, 300, 0 };
             var l = new double[] { 0, 50, 0, 75, 0, 100, 75, 0, 0, 50 };
-            var numberFile = new int[] { 1, 0, 2, 0, 0, 0, 0, 2, 3, 0 };
+            var numberFile = new [] { 1, 0, 2, 0, 0, 0, 0, 2, 3, 0 };
 
-            var a = Matrix<double>.Build.DenseOfArray(new double[,]
+            var a = Matrix<double>.Build.DenseOfArray(new [,]
             {
                 {0, 1, 0, 0, 0, 0, 0, 0, 0, 0},
                 {0, 0, (2 / 7.0) * (1 / 6.0), (2 / 7.0) * (5 / 6.0), 0, (5 / 7.0) * (4 / 5.0), (5 / 7.0) * (1 / 5.0), 0, 0, 0},
@@ -27,29 +27,6 @@ namespace Lab1
             });
 
             var b = Vector<double>.Build.Dense(new double[] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-
-            //var k = new double[] { 0, 33, 135, 0, 74, 63, 0, 26, 0, 23, 0 };
-            //var l = new double[] { 72, 0, 0, 100, 0, 0, 120, 0, 23, 0, 121 };
-            //var numberFile = new int[] { 1, 0, 0, 1, 0, 0, 2, 0, 3, 0, 3 };
-
-            //var a = Matrix<double>.Build.DenseOfArray(new double[,]
-            //{
-            //    {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-            //{0, 0, 1 / 3.0, 0, 5 / 18.0, 5 / 18.0, 0, 2 / 18.0, 0, 0, 0},
-            //{0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
-            //{0, 0, 0, 0, 5 / 12.0, 5 / 12.0, 0, 1 / 6.0, 0, 0, 0},
-            //{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-            //{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
-            //{0, 0, 0, 0, 5 / 12.0, 5 / 12.0, 0, 1 / 6.0, 0, 0, 0},
-            //{0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-            //{0, 0, 0, 0, 0, 0, 0, 0, 0, 1 / 3.0, 2 / 3.0},
-            //{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
-            //{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
-
-            //});
-
-            //var b = Vector<double>.Build.Dense(new double[] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
-
 
             // Linear Equation System solving 
             a = a.Transpose();
