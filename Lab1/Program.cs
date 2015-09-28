@@ -92,7 +92,7 @@ namespace Lab1
 
             for (var i = 0; i < n.Length; i++)
             {
-                Console.WriteLine("n[" + i + "] = " + n[i]);
+                Console.WriteLine("n[" + (i + 1) + "] = " + n[i]);
             }
 
             Console.WriteLine("\nQ = " + q);
