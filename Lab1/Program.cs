@@ -8,9 +8,9 @@ namespace Lab1
     {
         static void Main()
         {
-            var k = new double[] { 100, 0, 200, 0, 100, 0, 0, 200, 300, 0};
+            var k = new double[] { 100, 0, 200, 0, 100, 0, 0, 200, 300, 0 };
             var l = new double[] { 0, 50, 0, 75, 0, 100, 75, 0, 0, 50 };
-            var numberFile = new int[] {1, 0, 2, 0, 0, 0, 0, 2, 3, 0 };
+            var numberFile = new int[] { 1, 0, 2, 0, 0, 0, 0, 2, 3, 0 };
 
             var a = Matrix<double>.Build.DenseOfArray(new double[,]
             {
@@ -23,10 +23,33 @@ namespace Lab1
                 {0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 1 / 5.0, 4 / 5.0},
                 {0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-                {0, 0, 0, 0, 0, 0, 0, 0, 1 / 5.0, 4 / 5.0},  
+                {0, 0, 0, 0, 0, 0, 0, 0, 1 / 5.0, 4 / 5.0},
             });
 
             var b = Vector<double>.Build.Dense(new double[] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+
+            //var k = new double[] { 0, 33, 135, 0, 74, 63, 0, 26, 0, 23, 0 };
+            //var l = new double[] { 72, 0, 0, 100, 0, 0, 120, 0, 23, 0, 121 };
+            //var numberFile = new int[] { 1, 0, 0, 1, 0, 0, 2, 0, 3, 0, 3 };
+
+            //var a = Matrix<double>.Build.DenseOfArray(new double[,]
+            //{
+            //    {0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+            //{0, 0, 1 / 3.0, 0, 5 / 18.0, 5 / 18.0, 0, 2 / 18.0, 0, 0, 0},
+            //{0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0},
+            //{0, 0, 0, 0, 5 / 12.0, 5 / 12.0, 0, 1 / 6.0, 0, 0, 0},
+            //{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+            //{0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0},
+            //{0, 0, 0, 0, 5 / 12.0, 5 / 12.0, 0, 1 / 6.0, 0, 0, 0},
+            //{0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+            //{0, 0, 0, 0, 0, 0, 0, 0, 0, 1 / 3.0, 2 / 3.0},
+            //{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1},
+            //{0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0}
+
+            //});
+
+            //var b = Vector<double>.Build.Dense(new double[] { -1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0 });
+
 
             // Linear Equation System solving 
             a = a.Transpose();
@@ -69,13 +92,13 @@ namespace Lab1
                 switch (numberFile[i])
                 {
                     case 1:
-                        q1 += n[i] * l[i];
+                        q1 += n[i] * k[i];
                         break;
                     case 2:
-                        q2 += n[i] * l[i];
+                        q2 += n[i] * k[i];
                         break;
                     case 3:
-                        q3 += n[i] * l[i];
+                        q3 += n[i] * k[i];
                         break;
                     default:
                         N += n[i];
