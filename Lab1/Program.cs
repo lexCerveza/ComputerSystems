@@ -10,7 +10,7 @@ namespace Lab1
         {
             var k = new double[] { 100, 0, 200, 0, 100, 0, 0, 200, 300, 0 };
             var l = new double[] { 0, 50, 0, 75, 0, 100, 75, 0, 0, 50 };
-            var numberFile = new [] { 1, 0, 2, 0, 0, 0, 0, 2, 3, 0 };
+            var numberFile = new [] { 1, 0, 2, 0, 1, 0, 0, 2, 3, 0 };
 
             var a = Matrix<double>.Build.DenseOfArray(new [,]
             {
